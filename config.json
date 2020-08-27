@@ -1,0 +1,34 @@
+{
+    "db" : {
+        "host" : "localhost",
+        "port" : 3306,
+        "user" : "root",
+        "password" : "",
+        "name" : "comparer"
+    },
+    "processors" : {
+        "reader" : {
+            "limit" : 10,
+            "read_table" : "table_1",
+            "queue_table" : "api_queue",
+            "fields_to_compare" : ["text1", "text2", "text3"]
+        },
+        "api" : {
+            "limit" : 10,
+            "read_table" : "api_queue",
+            "queue_table" : "comparer_queue",
+            "api_url" : "",
+            "fields_to_compare" : ["text1", "text2", "text3"]
+        },
+        "comparer" : {
+            "limit" : 10,
+            "read_table" : "comparer_queue"
+        },
+        "writer" : {
+            "limit" : 10,
+            "read_table" : "comparer_queue",
+            "output_file" : "",
+            "fields_to_compare" : ["text1", "text2", "text3"]
+        }
+    }
+}
